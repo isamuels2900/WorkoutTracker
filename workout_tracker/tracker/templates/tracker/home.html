@@ -1,0 +1,24 @@
+{% extends "tracker/base.html" %}
+{% block content %}
+    {% for template in templates%}
+
+        <!--Section to showcase created templates-->
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <small class="text-muted">Posted on {{ template.date_posted }} by</small>
+                    <a class="mr-2" href="#">{{ template.author }}</a>
+                </div>
+                <h2><a class="article-title" href="#">{{ template.title }}</a></h2>
+                <small class="text-muted">Click on name to expand...</small>
+                <p class="article-content">{{ post.content }}</p>
+
+                {% for exercise in template.exercises%}
+                    <p>{{ exercise }}</p>
+                {% endfor %}
+
+            </div>
+        </article>
+        
+    {% endfor %}
+{% endblock content %}
