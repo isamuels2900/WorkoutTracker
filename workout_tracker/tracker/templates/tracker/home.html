@@ -1,20 +1,38 @@
 {% extends "tracker/base.html" %}
 {% block content %}
+    <!--Looks through all the template models-->
     {% for template in templates%}
 
-        <!--Section to showcase created templates-->
+        <!--Section to showcase created templates with their added exercises and reps/sets for each exercise-->
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
-                    <small class="text-muted">Posted on {{ template.date_posted }} by</small>
+                    <small class="text-muted">Posted on {{ template.last_updated }} by</small>
                     <a class="mr-2" href="#">{{ template.author }}</a>
                 </div>
-                <h2><a class="article-title" href="#">{{ template.title }}</a></h2>
+                <h2><a class="article-title" href="#">{{ template.name }}</a></h2>
                 <small class="text-muted">Click on name to expand...</small>
-                <p class="article-content">{{ post.content }}</p>
+                
+                <!--Looks through all the template_exercise models-->
+                {% for tempExer in template_exercise %}
 
-                {% for exercise in template.exercises%}
-                    <p>{{ exercise }}</p>
+                    <!--Checks if the template_exercise model has the template we're currently in-->
+                    {% if tempExer.template == template %}
+
+                        <!--Looks through all exercise models-->
+                        {% for exer in exercises %}
+
+                            <!--Checks if exercise is in the current template_exercise model-->
+                            {% if tempExer.exercise == exer %}
+
+                            <p class="article-content">{{ exer.name }}({{ exer.category}}): {{ tempExer.reps }} Reps x {{ tempExer.sets }} Sets </p>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {% endif %}
+
                 {% endfor %}
 
             </div>

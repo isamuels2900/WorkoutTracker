@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'tracker.apps.TrackerConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms', # Needed for crispy forms
+    'crispy_bootstrap4', # Needed for crispy forms
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +129,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Crispy is used to make forms look better on bootstrap4
+CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#LOGIN_REDIRECT_URL = 'tracker-home' #When users login they are redirected to the home page
+#LOGIN_URL = 'login'
