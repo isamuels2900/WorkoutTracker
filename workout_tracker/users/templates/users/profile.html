@@ -1,0 +1,5 @@
+{% extends "tracker/base.html" %}
+{% load crispy_forms_tags  %} <!--Allows us to use crispy filter on any form-->
+{% block content %}
+    <h1>Profile of {{ user.username }}</h1> <!-- We dont need to pass in user bcz its already built-in to django -->
+{% endblock content %}
