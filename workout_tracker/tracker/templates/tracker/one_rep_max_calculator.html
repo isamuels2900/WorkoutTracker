@@ -1,0 +1,91 @@
+{% extends "tracker/base.html" %}
+{% load crispy_forms_tags  %} <!--Allows us to use crispy filter on any form-->
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+            <h1>One Rep Max Calculator</h1>
+            <p>Calculate your one-rep max (1RM) for any lift.
+            Your one-rep max is the max weight you can lift 
+            for a single repetition for a given exercise.</p>
+            <small class="text-muted bp-2">Enter the weight lifted in Kilograms (Kg)</small>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button class="btn btn-outline-info" type="Submit">Calculate</button>
+            </form>
+        </div>
+    </article>
+    <article class="media content-section">
+        <div class="media-body">
+            {% if one_rep_max %}
+                <h3>Your estimated One Rep Max is: {{ one_rep_max }}</h3>
+            {% endif %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Percentage of 1RM</th>
+                        <th scope="col">Lift Weight</th>
+                        <th scope="col">Repetitions of 1RM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>100%</td>
+                        <td>{{ one_rep_max }}</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>95%</td>
+                        <td>{{ one_rep_max95 }}</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>90%</td>
+                        <td>{{ one_rep_max90 }}</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>85%</td>
+                        <td>{{ one_rep_max85 }}</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>80%</td>
+                        <td>{{ one_rep_max80 }}</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>75%</td>
+                        <td>{{ one_rep_max75 }}</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>70%</td>
+                        <td>{{ one_rep_max70 }}</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>65%</td>
+                        <td>{{ one_rep_max65 }}</td>
+                        <td>16</td>
+                    </tr>
+                    <tr>
+                        <td>60%</td>
+                        <td>{{ one_rep_max60 }}</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>55%</td>
+                        <td>{{ one_rep_max55 }}</td>
+                        <td>24</td>
+                    </tr>
+                    <tr>
+                        <td>50%</td>
+                        <td>{{ one_rep_max50 }}</td>
+                        <td>30</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+{% endblock content %}
