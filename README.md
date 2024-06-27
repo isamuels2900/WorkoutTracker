@@ -1,4 +1,4 @@
-Workout Tracker Web App
+# Workout Tracker Web App
 
 This project aims to create an easy to use web app where users can log their workouts,
 view and create workout routines and also use addtional features that might be helpful
