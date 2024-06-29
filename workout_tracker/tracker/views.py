@@ -25,6 +25,7 @@ def one_rep_max_calc(request):
             # Round to 2 decimal places
             one_rep_max = round(one_rep_max, 2)
             
+            # Percentages based on the one rep max to display on the 1rm calculator html 
             one_rep_max95 = one_rep_max * 0.95
             one_rep_max95 = round(one_rep_max95, 2)
             
