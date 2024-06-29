@@ -1,4 +1,5 @@
 {% extends "tracker/base.html" %}
+{% load crispy_forms_tags %} <!--Allows us to use crispy filter on any form-->
 {% block content %}
     <div class="content-section">
         <div class="media">
@@ -8,6 +9,17 @@
             <p class="text-secondary">{{ user.email }}</p>
           </div>
         </div>
-        <!-- FORM HERE -->
+        <form method="POST" enctype="multipart/form-data"> <!--we need to add this enctype for form to save image -->
+          {% csrf_token %}
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Profile Info</legend>
+              <!--We add both forms-->
+              {{ u_form|crispy }} 
+              {{ p_form|crispy }}
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="Submit">Update</button>
+          </div>
+      </form>
       </div>
 {% endblock content %}
