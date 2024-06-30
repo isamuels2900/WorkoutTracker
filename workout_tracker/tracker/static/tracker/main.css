@@ -92,3 +92,23 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.exercise-media {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.exercise-box {
+  padding: 15px;
+  border-color: rgb(163, 163, 163);
+  border: black 0.1rem solid;
+  background: rgb(250, 250, 250);
+  border-radius: 20%;
+  margin: 1rem;
+}
+
+.img-thumbnail {
+  width: 100px;
+  height: 100px;
+}
