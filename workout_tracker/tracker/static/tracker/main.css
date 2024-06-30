@@ -86,3 +86,9 @@ body {
   .table-header {
     width: 33%;
   }
+
+body {
+  background-image: url('./images/bg1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
