@@ -1,0 +1,36 @@
+{% extends "tracker/base.html" %}
+{% block content %}
+    <!--Section to showcase created templates with their added exercises and reps/sets for each exercise-->
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <small class="text-muted">Posted on {{ object.last_updated }} by</small>
+                <a class="mr-2" href="#">{{ object.author }}</a>
+            </div>
+            <h2 class="article-title">{{ object.name }}</h2>
+                
+             <!--Looks through all the template_exercise models-->
+            {% for tempExer in template_exercise %}
+
+                <!--Checks if the template_exercise model has the template we're currently in-->
+                {% if tempExer.object == object %}
+
+                    <!--Looks through all exercise models-->
+                    {% for exer in exercises %}
+
+                        <!--Checks if exercise is in the current template_exercise model-->
+                        {% if tempExer.exercise == exer %}
+
+                        <p class="article-content">{{ exer.name }}({{ exer.category}}): {{ tempExer.reps }} Reps x {{ tempExer.sets }} Sets </p>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+    </article>
+{% endblock content %}

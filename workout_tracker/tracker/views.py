@@ -2,14 +2,41 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from tracker.models import Template, Exercise, TemplateExercise
 from .forms import one_rep_max_calculator_form # Imports the form to calculate one rep maxes
+from django.views.generic import ListView, DetailView
 
 def home(request):
-    context = {
-        'templates': Template.objects.all(),
-        'exercises': Exercise.objects.all(),
-        'template_exercise': TemplateExercise.objects.all(),
-    }
-    return render(request, 'tracker/home.html', context)
+    return render(request, 'tracker/home.html')
+
+class TemplateListView(ListView):
+    model = Template # The model to query for the list view
+    template_name = 'tracker/home.html' # template ListView uses
+    context_object_name = 'object_list'
+    
+    ##### This is supposed to order by latest but it is not really working ###
+    def get_queryset(self):
+        return Template.objects.all().order_by('-last_updated')
+    
+    # We override the get_context_data method to add multiple context object names
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['templates'] = Template.objects.all()
+        context['exercises'] = Exercise.objects.all()
+        context['template_exercise'] = TemplateExercise.objects.all()
+        return context
+    
+# Detailed template view only shows the template information not the exercises or templateExercise info
+class TemplateDetailView(DetailView):
+    model = Template # The model to query for the list view
+    template_name = 'tracker/template_detail.html' # template ListView uses
+    context_object_name = 'template'
+    
+    # We override the get_context_data method to add multiple context object names
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['all_exercises'] = Exercise.objects.all()
+        context['template_exercise'] = TemplateExercise.objects.filter(template=self.object)
+        context['exercises'] = self.object.exercises.all()
+        return context
 
 def about(request):
     return render(request, 'tracker/about.html', { 'title':'about'})

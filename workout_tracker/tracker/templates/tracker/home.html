@@ -10,7 +10,7 @@
                     <small class="text-muted">Posted on {{ template.last_updated }} by</small>
                     <a class="mr-2" href="#">{{ template.author }}</a>
                 </div>
-                <h2><a class="article-title" href="#">{{ template.name }}</a></h2>
+                <h2><a class="article-title" href="{% url 'template-detail' template.id %}">{{ template.name }}</a></h2>
                 <small class="text-muted">Click on name to expand...</small>
                 
                 <!--Looks through all the template_exercise models-->
