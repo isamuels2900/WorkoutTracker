@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from tracker.models import Template, Exercise, TemplateExercise
 from .forms import one_rep_max_calculator_form # Imports the form to calculate one rep maxes
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 def home(request):
     return render(request, 'tracker/home.html')
@@ -37,6 +37,10 @@ class TemplateDetailView(DetailView):
         context['template_exercise'] = TemplateExercise.objects.filter(template=self.object)
         context['exercises'] = self.object.exercises.all()
         return context
+    
+class TemplateCreateView(CreateView):
+    model = Template
+    fields = ['name','exercises']
 
 def about(request):
     return render(request, 'tracker/about.html', { 'title':'about'})
