@@ -1,7 +1,8 @@
 {% extends "tracker/base.html" %}
 {% block content %}
     <div>
-        <h1 class="text-white">Default Workout Templates</h1>
+        <h1 class="text-white">Your saved workouts</h1>
+        <a class="btn btn-primary mb-2" href="{% url 'template-create' %}">Create New Workout</a>
     </div>
     <!--Looks through all the template models-->
     {% for template in templates%}
@@ -12,9 +13,16 @@
                 <div class="article-metadata">
                     <small class="text-muted">Posted on {{ template.last_updated }} by</small>
                     <a class="mr-2" href="#">{{ template.author }}</a>
+                    <div>
+                        <a class="btn btn-primary btn-sm my-2" href="#">Add Exercises</a>
+                        <a class="btn btn-outline-secondary btn-sm my-2" href="{% url 'template-update' template.id %}">Update</a>
+                        <a class="btn btn-outline-danger btn-sm my-2" href="{% url 'template-delete' template.id %}">Delete</a>
+                    </div>
                 </div>
+
                 <h2><a class="article-title" href="{% url 'template-detail' template.id %}">{{ template.name }}</a></h2>
                 <small class="text-muted">Click on name to expand...</small>
+                
                 
                 <!--Looks through all the template_exercise models-->
                 {% for tempExer in template_exercise %}

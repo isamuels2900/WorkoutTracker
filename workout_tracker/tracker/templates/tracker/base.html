@@ -28,7 +28,7 @@
                     <!-- If statements to verify if user is logged in and show options accordingly -->
                     {% if user.is_authenticated %}
                       <a class="nav-item nav-link" href="{% url 'tracker-home' %}">Home</a>
-                      <a class="nav-item nav-link" href="#">My workouts</a>
+                      <a class="nav-item nav-link" href="{% url 'users-my_workouts' %}">My workouts</a>
                       <a class="nav-item nav-link" href="{% url 'tracker-one_rep_max_calc' %}">1rm Calculator</a>
                       <a class="nav-item nav-link" href="{% url 'tracker-exercises' %}">Exercises</a>
                       <a class="nav-item nav-link" href="{% url 'tracker-about' %}">About</a>

@@ -6,9 +6,16 @@
             <div class="article-metadata">
                 <small class="text-muted">Posted on {{ object.last_updated }} by</small>
                 <a class="mr-2" href="#">{{ object.author }}</a>
+                <!-- Only displays these options if the user that amde the template is current user -->
+                {% if object.author == user %}
+                <div>
+                    <a class="btn btn-outline-secondary btn-sm mb-2" href="{% url 'template-update' object.id %}">Update</a>
+                    <a class="btn btn-outline-danger btn-sm mb-2" href="{% url 'template-delete' object.id %}">Delete</a>
+                </div>
+                {% endif %}
             </div>
             <h2 class="article-title">{{ object.name }}</h2>
-                
+
              <!--Looks through all the template_exercise models-->
             {% for tempExer in template_exercise %}
 

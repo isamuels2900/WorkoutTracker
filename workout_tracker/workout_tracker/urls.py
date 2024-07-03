@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views # Imports views for user authentication (login, etc..)
 from django.urls import path, include
 from users import views as user_views # Imports views from users app
+from users.views import WorkoutsListView # Imports the List View for my workouts
 # Imports settings for media
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,6 +29,7 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', user_views.logout_view, name='logout'),
+    path('my_workouts/', WorkoutsListView.as_view(), name='users-my_workouts'),
     path('', include('tracker.urls')),
 ]
 

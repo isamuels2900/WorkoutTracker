@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from django.urls import reverse
 
     
 class Muscle(models.Model):
@@ -54,6 +55,10 @@ class Template(models.Model):
         
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('users-my_workouts')
+    
 
 class TemplateExercise(models.Model):
     template = models.ForeignKey(Template, on_delete=models.CASCADE)

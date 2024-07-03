@@ -7,11 +7,11 @@
             <p>Calculate your one-rep max (1RM) for any lift.
             Your one-rep max is the max weight you can lift 
             for a single repetition for a given exercise.</p>
-            <small class="text-muted bp-2">Enter the weight lifted in Kilograms (Kg)</small>
+            <small class="text-muted bp-2">Enter the weight lifted in Kilograms (Kg) or Pounds (Lbs) *Only enter numbers*</small>
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button class="btn btn-outline-info" type="Submit">Calculate</button>
+                <button class="btn btn-primary" type="Submit">Calculate</button>
             </form>
         </div>
     </article>

@@ -3,6 +3,8 @@ from django.contrib import messages # Import messages shown on the app (success 
 from django.contrib.auth.decorators import login_required # Imports login required function
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm # Imports our custom forms
 from django.contrib.auth import logout # Import logout for logout function
+from tracker.models import Template, Exercise, TemplateExercise
+from django.views.generic import ListView
 
 def register(request):
     if request.method == 'POST':
@@ -45,3 +47,17 @@ def profile(request):
     }
     
     return render(request, 'users/profile.html', context)
+
+class WorkoutsListView(ListView):
+    model = Template # The model to query for the list view
+    template_name = 'users/my_workouts.html' # template ListView uses
+    context_object_name = 'object_list'
+    
+    # We override the get_context_data method to add multiple context object names
+    def get_context_data(self, **kwargs):
+        current_user = self.request.user
+        context = super().get_context_data(**kwargs)
+        context['templates'] = Template.objects.filter(author=current_user)
+        context['exercises'] = Exercise.objects.all()
+        context['template_exercise'] = TemplateExercise.objects.all()
+        return context

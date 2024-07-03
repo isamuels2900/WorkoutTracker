@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin # Mixins for create and update verification
 from tracker.models import Template, Exercise, TemplateExercise
 from .forms import one_rep_max_calculator_form # Imports the form to calculate one rep maxes
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 def home(request):
     return render(request, 'tracker/home.html')
@@ -19,7 +20,7 @@ class TemplateListView(ListView):
     # We override the get_context_data method to add multiple context object names
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['templates'] = Template.objects.all()
+        context['templates'] = Template.objects.filter(author = 1)
         context['exercises'] = Exercise.objects.all()
         context['template_exercise'] = TemplateExercise.objects.all()
         return context
@@ -38,9 +39,40 @@ class TemplateDetailView(DetailView):
         context['exercises'] = self.object.exercises.all()
         return context
     
-class TemplateCreateView(CreateView):
+class TemplateCreateView(LoginRequiredMixin, CreateView):
     model = Template
-    fields = ['name','exercises']
+    fields = ['name']
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class TemplateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Template
+    fields = ['name']
+    
+    # Checks if form data is valid 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    # Checks if template author is the one trying to update a template
+    def test_func(self):
+        template = self.get_object()
+        if self.request.user == template.author:
+            return True
+        return False
+
+class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Template
+    success_url = '/my_workouts'
+    
+    # Checks if template author is the one trying to update a template
+    def test_func(self):
+        template = self.get_object()
+        if self.request.user == template.author:
+            return True
+        return False
 
 def about(request):
     return render(request, 'tracker/about.html', { 'title':'about'})
