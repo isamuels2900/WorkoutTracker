@@ -30,6 +30,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', user_views.logout_view, name='logout'),
     path('my_workouts/', WorkoutsListView.as_view(), name='users-my_workouts'),
+    path('add_exercises/', user_views.addExercises, name='users-add_exercises'),
     path('', include('tracker.urls')),
 ]
 

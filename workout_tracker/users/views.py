@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages # Import messages shown on the app (success msg, etc..)
 from django.contrib.auth.decorators import login_required # Imports login required function
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm # Imports our custom forms
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, AddExerciseForm # Imports our custom forms
 from django.contrib.auth import logout # Import logout for logout function
 from tracker.models import Template, Exercise, TemplateExercise
 from django.views.generic import ListView
@@ -48,6 +48,21 @@ def profile(request):
     
     return render(request, 'users/profile.html', context)
 
+# Adds exercises to an existing template
+def addExercises(request):
+    if request.method == 'POST':
+        
+        add_form = AddExerciseForm(request.POST, user=request.user)
+        
+        if add_form.is_valid():
+            add_form.save()
+            messages.success(request, f'Exercise added!')
+            return redirect('/my_workouts')
+    else:
+        add_form = AddExerciseForm(user=request.user)
+    return render(request, 'users/add_exercises.html', {'add_form':add_form})
+
+# Shows all workouts created by the current logged in user
 class WorkoutsListView(ListView):
     model = Template # The model to query for the list view
     template_name = 'users/my_workouts.html' # template ListView uses

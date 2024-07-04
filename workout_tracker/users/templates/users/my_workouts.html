@@ -14,7 +14,7 @@
                     <small class="text-muted">Posted on {{ template.last_updated }} by</small>
                     <a class="mr-2" href="#">{{ template.author }}</a>
                     <div>
-                        <a class="btn btn-primary btn-sm my-2" href="#">Add Exercises</a>
+                        <a class="btn btn-primary btn-sm my-2" href="{% url 'users-add_exercises' %}">Add Exercises</a>
                         <a class="btn btn-outline-secondary btn-sm my-2" href="{% url 'template-update' template.id %}">Update</a>
                         <a class="btn btn-outline-danger btn-sm my-2" href="{% url 'template-delete' template.id %}">Delete</a>
                     </div>
