@@ -7,3 +7,4 @@ the option to view each available exercise in detail.
 
 - We need to run pip install pillow for images to work
 - We need to run pip install django-sendgrid-v5 for the emails
+- We need to run pip install python-dotenv for .env file so we can store sensitive info
