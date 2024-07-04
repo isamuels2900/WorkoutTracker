@@ -1,0 +1,15 @@
+{% extends "tracker/base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body media-content">
+            <div class="detail-exercise-box">
+                <img src="{{ object.img.url }}" alt="Exercise Image">
+            </div>
+            <div class"text-content">
+                <h3>Name: {{ object.name}}</h1>
+                <h3>Muscle: {{ object.muscle}}</h1>
+                <h3>Category: {{ object.category}}</h1>
+            </div>
+        </div>
+    </article>
+{% endblock content %}

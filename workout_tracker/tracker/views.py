@@ -142,3 +142,8 @@ class ExerciseListView(ListView):
     context_object_name = 'exercises'
     ordering = ['name']
     paginate_by = 6
+
+class ExerciseDetailView(DetailView):
+    model = Exercise
+    template_name = 'tracker/exercise_detail.html'
+    context_object_name = 'template'

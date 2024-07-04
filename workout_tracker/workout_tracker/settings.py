@@ -140,3 +140,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'tracker-home' #When users login they are redirected to the home page
 LOGIN_URL = 'login' # Route where users are redirected to log in
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'samuelsian29@gmail.com'#os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = 'paps jdnc suer yebx'#os.environ.get('EMAIL_PASS')

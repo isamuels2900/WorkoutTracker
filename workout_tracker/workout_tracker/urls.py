@@ -31,6 +31,35 @@ urlpatterns = [
     path('logout/', user_views.logout_view, name='logout'),
     path('my_workouts/', WorkoutsListView.as_view(), name='users-my_workouts'),
     path('add_exercises/', user_views.addExercises, name='users-add_exercises'),
+    
+    # Password reset 
+    path('password-reset/', 
+         auth_views.PasswordResetView.as_view(
+             template_name='users/password_reset.html'
+             ), 
+         name='password_reset'),
+    
+    #Password reset done
+    path('password-reset/done/', 
+        auth_views.PasswordResetDoneView.as_view(
+            template_name='users/password_reset_done.html'
+            ), 
+        name='password_reset_done'),
+    
+    # Password reset confirm
+    path('password-reset-confirm/<uidb64>/<token>/', 
+         auth_views.PasswordResetConfirmView.as_view(
+             template_name='users/password_reset_confirm.html'
+             ), 
+         name='password_reset_confirm'),
+    
+    # Password reset complete
+    path('password-reset-complete/', 
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='users/password_reset_complete.html'
+             ), 
+         name='password_reset_complete'),
+    
     path('', include('tracker.urls')),
 ]
 

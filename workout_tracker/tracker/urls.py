@@ -7,6 +7,7 @@ from .views import (
     TemplateUpdateView,
     TemplateDeleteView,
     ExerciseListView,
+    ExerciseDetailView,
 )
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path('about/', views.about, name='tracker-about'),
     path('one_rep_max_calculator/', views.one_rep_max_calc, name='tracker-one_rep_max_calc'),
     path('exercises/', ExerciseListView.as_view(), name='tracker-exercises'),
+    path('exercise/<int:pk>/', ExerciseDetailView.as_view(), name='exercise-detail'),
 ]
