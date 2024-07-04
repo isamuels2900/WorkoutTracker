@@ -66,13 +66,16 @@ def addExercises(request):
 class WorkoutsListView(ListView):
     model = Template # The model to query for the list view
     template_name = 'users/my_workouts.html' # template ListView uses
-    context_object_name = 'object_list'
+    context_object_name = 'templates'
+    paginate_by = 3
+    
+    def get_queryset(self):
+        current_user = self.request.user
+        return Template.objects.filter(author=current_user)
     
     # We override the get_context_data method to add multiple context object names
     def get_context_data(self, **kwargs):
-        current_user = self.request.user
         context = super().get_context_data(**kwargs)
-        context['templates'] = Template.objects.filter(author=current_user)
         context['exercises'] = Exercise.objects.all()
         context['template_exercise'] = TemplateExercise.objects.all()
         return context

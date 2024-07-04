@@ -11,16 +11,16 @@ def home(request):
 class TemplateListView(ListView):
     model = Template # The model to query for the list view
     template_name = 'tracker/home.html' # template ListView uses
-    context_object_name = 'object_list'
+    context_object_name = 'templates'
+    paginate_by = 2
     
-    ##### This is supposed to order by latest but it is not really working ###
     def get_queryset(self):
-        return Template.objects.all().order_by('-last_updated')
+        current_user = self.request.user
+        return Template.objects.filter(author=1)
     
     # We override the get_context_data method to add multiple context object names
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['templates'] = Template.objects.filter(author = 1)
         context['exercises'] = Exercise.objects.all()
         context['template_exercise'] = TemplateExercise.objects.all()
         return context
@@ -136,8 +136,9 @@ def one_rep_max_calc(request):
         form = one_rep_max_calculator_form()
     return render(request, 'tracker/one_rep_max_calculator.html', {'form':form})
 
-def view_exercises(request):
-    context = {
-        'exercises': Exercise.objects.all()
-    }
-    return render(request, 'tracker/exercises.html',context)
+class ExerciseListView(ListView):
+    model = Exercise
+    template_name = 'tracker/exercises.html'
+    context_object_name = 'exercises'
+    ordering = ['name']
+    paginate_by = 6
