@@ -6,3 +6,4 @@ like one rep max calculator, warm up calculator, a personal workout routine make
 the option to view each available exercise in detail.
 
 - We need to run pip install pillow for images to work
+- We need to run pip install django-sendgrid-v5 for the emails
