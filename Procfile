@@ -1,1 +1,1 @@
-web:gunicorn workout_tracker.wsgi
+web: gunicorn workout_tracker.wsgi
